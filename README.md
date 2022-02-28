@@ -98,10 +98,6 @@ in
   ]
   ```
 
-
-
-
-
 **Library**:
 
 - Table.TransfromColumns(table, {"Column name", Text.Proper}): capital text
@@ -112,8 +108,6 @@ in
   ```
 
 - 
-
-
 
 **Operators**:
 
@@ -134,8 +128,6 @@ in
   ```
 
 - 
-
-
 
 **Metadata**: a record that store metadata for a value (nhiều kiểu data khác nhau)
 
@@ -178,8 +170,6 @@ in
 
 - 
 
-
-
 **If expression**: base on logical condition
 
 - ```
@@ -189,4 +179,114 @@ in
       1 + 1
   ```
 
-- 
+**Value**:
+
+- | Kind         | Literal                                              |
+  | ------------ | ---------------------------------------------------- |
+  | Null         | `null`                                               |
+  | Logical      | `true`, `false`                                      |
+  | Number       | `0` `1` `-1` `1.2` `2.3e-5`                          |
+  | Time         | `#time(09, 15, 00)`                                  |
+  | Date         | `#date(2013, 02, 26)`                                |
+  | DateTime     | `#datetime(2013, 02, 26,  09, 15, 00)`               |
+  | DateTimeZone | `#datetime(2013, 02, 26,  09, 15, 00,  09, 00)`      |
+  | Duration     | `#duration(0, 1, 30, 0)`                             |
+  | Text         | `"hello"`                                            |
+  | Binary       | `#binary("AQUID")`                                   |
+  | List         | `{1, 2, 3}`                                          |
+  | Record       | `[ A = 1, B = 2 ]`                                   |
+  | Table        | `#table({"X", "Y"}, { {0, 1}, {1, 0} })`             |
+  | Function     | `(x) => x + 1`                                       |
+  | Type         | `type { number }` `type table [ A = any, B = text ]` |
+
+- Logical: `true` `false`
+  
+  | Operator  | Result                  |
+  | --------- | ----------------------- |
+  | `x > y`   | Greater than            |
+  | `x >= y`  | Greater than or equal   |
+  | `x < y`   | Less than               |
+  | `x <= y`  | Less than or equal      |
+  | `x = y`   | Equal                   |
+  | `x <> y`  | Not equal               |
+  | `x or y`  | Conditional logical OR  |
+  | `x ?? y`  | Coalesce                |
+  | `x and y` | Conditional logical AND |
+  | `not x`   | Logical NOT             |
+
+- Time
+  
+  ```
+  #time(hour, minute, second)
+  0 ≤ hour ≤ 24 
+  0 ≤ minute ≤ 59 
+  0 ≤ second ≤ 59
+  ```
+
+- Date
+  
+  ```
+  #date(year, month, day)
+  1 ≤ year ≤ 9999 
+  1 ≤ month ≤ 12 
+  1 ≤ day ≤ 31
+  ```
+
+- DateTime
+  
+  ```
+  #datetime(year, month, day, hour, minute, second)
+  1 ≤ year ≤ 9999
+  1 ≤ month ≤ 12
+  1 ≤ day ≤ 31
+  0 ≤ hour ≤ 23
+  0 ≤ minute ≤ 59
+  0 ≤ second ≤ 59
+  ```
+
+- DateTimeZone: offset-hour (múi giờ)
+  
+  ```
+  #datetimezone(
+      year, month, day,
+      hour, minute, second,
+      offset-hours, offset-minutes
+  )
+  1 ≤ year ≤ 9999
+  1 ≤ month ≤ 12
+  1 ≤ day ≤ 31
+  0 ≤ hour ≤ 23
+  0 ≤ minute ≤ 59
+  0 ≤ second ≤ 59
+  -14 ≤ offset-hours ≤ 14
+  -59 ≤ offset-minutes ≤ 59
+  ```
+
+- Duration
+  
+  ```
+  #duration(day, hour, minute, second)
+  //Ex:
+  #duration(0, 0, 0, 5.5)          // 5.5 seconds 
+  #duration(0, 0, 0, -5.5)         // -5.5 seconds 
+  #duration(0, 0, 5, 30)           // 5.5 minutes 
+  #duration(0, 0, 5, -30)          // 4.5 minutes 
+  #duration(0, 24, 0, 0)           // 1 day 
+  #duration(1, 0, 0, 0)            // 1 day
+  ```
+
+- List 
+  
+  ```
+  { 1, 5..9, 11 } // { 1, 5, 6, 7, 8, 9, 11 }
+  {}  // empty list
+  
+  List.Count({true, false})  // 2 
+  List.Count({})   
+  
+  {1, 2} & {3, 4, 5}   // {1, 2, 3, 4, 5} 
+  {1, 2} = {1, 2}      // true 
+  {2, 1} <> {1, 2}     // true
+  ```
+  
+  
